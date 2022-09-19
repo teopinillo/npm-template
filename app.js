@@ -56,6 +56,10 @@ app.get('/about', (req, res) => {
     res.sendFile( path.join(__dirname,'views','about.html'));
 });
 
+app.get('/log', (req, res) => {
+    res.sendFile( path.join(__dirname,'logs','log.txt'));
+});
+
 app.post('/', (req, res)=>{
     
     let fetcchURL = "some_url";
