@@ -35,6 +35,7 @@ const port = 3001;
 app.use ( (req, res, next) =>{
     logEvent (`${req.method}\t${req.headers.origin}\t${req.url}`,'log.txt');
     console.log (`${req.method} ${req.path}`);
+    next();
 });
 
 //express support regular expression in the url
