@@ -1,4 +1,21 @@
 //jshint esversion: 6
+
+//cross origin resource sharing.
+// =============================> remove || origin on production
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1 || !origin){
+        callback ( null, true)
+        } else {
+        callback (new Error('Not allowed by CORS'));
+    }
+},
+    optionSuccessStatus: 200
+}
+
+// =============================> remove local host on production
+const whitelist = ['https://www.mysitename.com','http://127.0.0.1:3001','http://localhost:3001'];
+
 const express = require('express');
 const https = require('https');
 const bodyParser = require("body-parser");
@@ -7,6 +24,10 @@ const date_fns = require ("date-fns");
 const { v4 : uuid } = require ("uuid");
 const path = require ("path");
 const logEvent = require ("./middleware/logEvents")
+const { logger } = require ("./middleware/logEvents")
+const errorHandler = requiere("./middleware/errorHandler");
+
+const cors = require ('cors');
 
 console.log ("app_name v1.0 (c)teopi");
 console.log (date_fns.format( new Date(),"yyyyMMdd\tHH:mm:ss"));
@@ -32,11 +53,11 @@ const port = 3001;
 //express check the url in the same order that are here
 //the las .get could be used as default
 
-app.use ( (req, res, next) =>{
-    logEvent (`${req.method}\t${req.headers.origin}\t${req.url}`,'log.txt');
-    console.log (`${req.method} ${req.path}`);
-    next();
-});
+app.use ( logger );
+
+
+
+app.use (cors (corsOptions) );
 
 //express support regular expression in the url
 //^ = start, $ = end, | = or, ( ... )? = optional
