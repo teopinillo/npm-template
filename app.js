@@ -43,10 +43,9 @@ app.use ( express.json () );
 
 //serve static file
 app.use(express.static( path.join (__dirname,'/public')));
+app.use('/subdir', express.static( path.join (__dirname,'/public')));
 
-//favicon
-//var favicon = require ('serve-favicon');
-//app.use ( favicon (path.join (__dirname,'public','img',"favicon.ico")));
+app.use ('/subdir', require('./routes/subdir'));
 
 const port = 3001;
 
@@ -100,7 +99,7 @@ app.post('/', (req, res)=>{
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
-        res.params.sendFile( path.join(__dirname,'views','404.html'));
+        res.sendFile( path.join(__dirname,'views','404.html'));
     } else if (req.accepts('json')){
         res.send ({error:"404 Not Found"});
     } else {
