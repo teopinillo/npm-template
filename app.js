@@ -42,9 +42,10 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use ( express.json () );
 
 //serve static file
-app.use(express.static( path.join (__dirname,'/public')));
+app.use('/',express.static( path.join (__dirname,'/public')));
 app.use('/subdir', express.static( path.join (__dirname,'/public')));
 
+app.use ('/', require('./routes/root'));
 app.use ('/subdir', require('./routes/subdir'));
 
 const port = 3001;
@@ -56,22 +57,20 @@ app.use ( logger );
 
 app.use (cors (corsOptions) );
 
-
-
-app.post('/', (req, res)=>{
+//app.post('/', (req, res)=>{
     
-    let fetcchURL = "some_url";
-    https.get (url, (response)=>{
-                
-        response.on("data", (rawData) => {
-        let data = JSON.parse(rawData);          
-         
-		res.writes ('some_html_code');
-        res.write ('more_html_code');
-        res.send();
-        })
-    });
-});
+//    let fetcchURL = "some_url";
+//   https.get (url, (response)=>{
+//                
+//        response.on("data", (rawData) => {
+//        let data = JSON.parse(rawData);          
+//         
+//		res.writes ('some_html_code');
+//        res.write ('more_html_code');
+//        res.send();
+//        })
+//    });
+//});
   
 //dont put any get after this. This will be the default
 app.all('*', (req, res) => {

@@ -26,3 +26,5 @@
 20220923	23:52:56	6941ac19-d7ab-406c-af61-8aadd61eb886	GET	undefined	/subdir/style.css
 20220923	23:52:56	f3356411-ed30-4b6e-9df8-963fa5e0f35b	GET	undefined	/subdir/index.js
 20220923	23:53:56	9bf6d1b5-44ee-4f33-bb47-6cfe6e238e95	GET	undefined	/subdir/index.js
+20220924	00:17:56	7a51cea7-b992-4d8a-b101-34e071cf6e79	GET	undefined	/subdir/js/index.js
+20220924	00:22:48	492fe2a4-a360-42db-b9b6-57dc359e545b	GET	undefined	/logs
