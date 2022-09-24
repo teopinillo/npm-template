@@ -54,31 +54,9 @@ const port = 3001;
 
 app.use ( logger );
 
-
-
 app.use (cors (corsOptions) );
 
-//express support regular expression in the url
-//^ = start, $ = end, | = or, ( ... )? = optional
-app.get('^/$|/index(.html)?', (req, res) => {
-        res.sendFile('./views/index.html', { root : __dirname });
-        //another way
-        //res.sendFile( path.join(__dirname,'views','index.html'));
-        //res.send('Hello World');
-});
 
-//redirect example
-app.get('/home', (req, res) => {
-    res.redirect( 301, 'index'); //302 by default
-});
-
-app.get('/about', (req, res) => {
-    res.sendFile( path.join(__dirname,'views','about.html'));
-});
-
-app.get('/log', (req, res) => {
-    res.sendFile( path.join(__dirname,'logs','log.txt'));
-});
 
 app.post('/', (req, res)=>{
     
