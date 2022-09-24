@@ -24,8 +24,8 @@ const date_fns = require ("date-fns");
 const { v4 : uuid } = require ("uuid");
 const path = require ("path");
 const logEvent = require ("./middleware/logEvents")
-const { logger } = require ("./middleware/logEvents")
-const errorHandler = requiere("./middleware/errorHandler");
+const { logger } = require ("./middleware/logEvents");
+const errorHandler = require("./middleware/errorHandler");
 
 const cors = require ('cors');
 
@@ -97,9 +97,18 @@ app.post('/', (req, res)=>{
 });
   
 //dont put any get after this. This will be the default
-app.get('/*', (req, res) => {
-    res.status(404).sendFile( path.join(__dirname,'views','404.html'));
+app.all('*', (req, res) => {
+    res.status(404);
+    if (req.accepts('html')) {
+        res.params.sendFile( path.join(__dirname,'views','404.html'));
+    } else if (req.accepts('json')){
+        res.send ({error:"404 Not Found"});
+    } else {
+        res.type('txt').send("404 Not Found");
+    }
 });
+
+app.use (errorHandler );
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
